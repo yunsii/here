@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import optimizationPersist from 'vite-plugin-optimize-persist';
 import pkgConfig from 'vite-plugin-package-config';
+import svgr from '@honkhonk/vite-plugin-svgr';
+import autoImport from 'unplugin-auto-import/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import vitApp from '@vitjs/vit';
 import windiCSS from 'vite-plugin-windicss';
@@ -19,6 +21,15 @@ export default defineConfig({
           plugins: ['decorators-legacy'],
         },
       },
+    }),
+    svgr(),
+    autoImport({
+      imports: [
+        'react',
+        {
+          react: ['forwardRef', 'useLayoutEffect'],
+        },
+      ],
     }),
     tsconfigPaths(),
     pkgConfig(),
