@@ -1,20 +1,17 @@
-// import * as path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import vitePluginImp from 'vite-plugin-imp';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import optimizationPersist from 'vite-plugin-optimize-persist';
 import pkgConfig from 'vite-plugin-package-config';
 import { visualizer } from 'rollup-plugin-visualizer';
 import vitApp from '@vitjs/vit';
 import windiCSS from 'vite-plugin-windicss';
-import { getThemeVariables } from 'antd/dist/theme';
 
 import routes from './config/routes';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/vite-react/',
+  base: '/here/',
   plugins: [
     react({
       babel: {
@@ -26,14 +23,6 @@ export default defineConfig({
     tsconfigPaths(),
     pkgConfig(),
     optimizationPersist(),
-    vitePluginImp({
-      libList: [
-        {
-          libName: 'antd',
-          style: (name) => `antd/es/${name}/style`,
-        },
-      ],
-    }),
     vitApp({
       routes,
       dynamicImport: {
@@ -63,11 +52,6 @@ export default defineConfig({
     },
     preprocessorOptions: {
       less: {
-        // modifyVars: { 'primary-color': '#13c2c2' },
-        modifyVars: getThemeVariables({
-          // dark: true, // 开启暗黑模式
-          // compact: true, // 开启紧凑模式
-        }),
         javascriptEnabled: true,
       },
     },

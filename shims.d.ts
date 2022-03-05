@@ -10,5 +10,3 @@ declare namespace React {
     transform?: string;
   }
 }
-
-declare module 'antd/dist/theme';
