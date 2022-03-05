@@ -1,3 +1,5 @@
+import '@/extensions/Base64/register';
+
 export interface IRootLayoutProps {
   children: React.ReactNode;
 }

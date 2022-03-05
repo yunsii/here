@@ -27,7 +27,13 @@ export default defineConfig({
       imports: [
         'react',
         {
-          react: ['forwardRef', 'useLayoutEffect'],
+          react: [
+            'createElement',
+            'cloneElement',
+            'createContext',
+            'useLayoutEffect',
+            'forwardRef',
+          ],
         },
       ],
     }),
