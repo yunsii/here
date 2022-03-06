@@ -2,6 +2,8 @@ import { useControllableValue } from 'ahooks';
 import classNames from 'classnames';
 import * as Base64 from 'js-base64';
 
+import Container from '@/extensions/components/Container';
+
 interface InputProps {
   name: string;
   className?: string;
@@ -18,7 +20,7 @@ function Input(props: InputProps) {
     <div className={classNames('flex flex-col', className)}>
       <div>{name}</div>
       <textarea
-        className='outline-none flex-1 p-4px resize-none'
+        className='outline-none flex-1 min-h-240px p-4px resize-none'
         value={value || ''}
         onChange={(event) => {
           setValue(event.target.value);
@@ -43,19 +45,19 @@ export default function Base64Extension() {
   };
 
   return (
-    <div className='flex p-8px w-full min-h-240px h-60vh'>
+    <Container>
       <Input
         name='原始文本'
-        className='flex-1 pr-4px'
+        className='flex-1 pr-4px <xl:pr-0 <xl:mb-8px'
         value={decodeText}
         onChange={handleDecodeTextChange}
       />
       <Input
         name='编码后文本'
-        className='flex-1 pl-4px'
+        className='flex-1 pl-4px <xl:pl-0'
         value={encodeText}
         onChange={handleEncodeTextChange}
       />
-    </div>
+    </Container>
   );
 }

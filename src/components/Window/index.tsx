@@ -41,7 +41,7 @@ export default function Window(props: WindowProps) {
           />
         </div>
       </div>
-      <div className='flex-1'>{children}</div>
+      <div className='flex-1 overflow-auto'>{children}</div>
     </div>
   );
 }
