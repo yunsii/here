@@ -5,14 +5,11 @@ export default [
     routes: [
       {
         path: '/',
-        component: './pages/Home',
-      },
-      {
-        component: './pages/404',
+        component: './view',
       },
     ],
   },
   {
-    component: './pages/404',
+    component: './404',
   },
 ];

@@ -22,6 +22,7 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-helmet-async": "^1.0.9",
+    "react-tiny-popover": "^7.0.1",
     "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {
@@ -66,6 +67,7 @@
         "react",
         "react-dom",
         "react-helmet-async",
+        "react-tiny-popover",
         "reactjs-popup"
       ]
     }

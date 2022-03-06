@@ -4,10 +4,16 @@ export interface IconWrapperProps
   /** SVG 图标可配置 */
   highlight?: boolean;
   iconStyle?: React.CSSProperties;
+  afterClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const IconWrapper = forwardRef((props: IconWrapperProps, ref?: React.LegacyRef<HTMLDivElement>) => {
-  const { highlight, icon, iconStyle, ...rest } = props;
+  const { highlight, icon, iconStyle, onClick, afterClick, ...rest } = props;
+
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    onClick?.(event);
+    afterClick?.(event);
+  };
 
   let className =
     'w-task-bar-size h-task-bar-size flex justify-center items-center hover:bg-second-color svg:text-white';
@@ -23,7 +29,7 @@ const IconWrapper = forwardRef((props: IconWrapperProps, ref?: React.LegacyRef<H
   };
 
   return (
-    <div {...rest} ref={ref} className={className}>
+    <div onClick={handleClick} {...rest} ref={ref} className={className}>
       {renderIcon()}
     </div>
   );

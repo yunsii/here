@@ -7,6 +7,7 @@ import Registry from '@/extensions/core/registry';
 import IconWrapper from '@/components/IconWrapper';
 
 import Panel from './Panel';
+import AboutPopup from './AboutPopup';
 
 export interface PopupAction {
   close: () => void;
@@ -18,6 +19,7 @@ export default function TaskBar() {
   const popupRef = useRef<PopupAction>(null);
 
   const fixedExtensions = Registry.extension.getFixedToTaskBar();
+  const aboutPopupRef = useRef<PopupAction>(null);
 
   return (
     <div className='w-full h-task-bar-size bg-primary-color flex select-none'>
@@ -27,8 +29,14 @@ export default function TaskBar() {
         position='top left'
         arrow={false}
       >
-        <Panel onClick={() => popupRef.current?.close()} />
+        <Panel
+          onClickAbout={() => {
+            aboutPopupRef.current?.open();
+          }}
+          afterClick={() => popupRef.current?.close()}
+        />
       </Popup>
+      <AboutPopup actionRef={aboutPopupRef} />
       <Observer>
         {() => {
           return (

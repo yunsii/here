@@ -4,10 +4,10 @@ import { useUnmount } from 'ahooks';
 import Registry from '@/extensions/core/registry';
 import windows from '@/models/windows';
 import IconWrapper from '@/components/IconWrapper';
+import Window from '@/components/Window';
 
 import SearchBar from './components/SearchBar';
 import TaskBar from './components/TaskBar';
-import Window from './components/Window';
 
 export default function Home() {
   useUnmount(() => {
@@ -35,6 +35,7 @@ export default function Home() {
                 return (
                   <Window
                     key={item.handle}
+                    className='absolute top-0 right-0 bottom-48px left-0'
                     name={
                       <div className='flex'>
                         <IconWrapper
