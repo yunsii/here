@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Container from '@/extensions/components/Container';
 
@@ -19,9 +20,11 @@ function Panel(props: CellProps) {
       <div className={classNames('flex-1', className)}>
         {data.map((item) => {
           return (
-            <div key={item} className='py-16px flex justify-center items-center bg-light-50'>
-              {item}
-            </div>
+            <CopyToClipboard key={item} text={item}>
+              <div className='py-16px flex justify-center items-center bg-light-50 hover:bg-light-400 active:bg-light-800'>
+                {item}
+              </div>
+            </CopyToClipboard>
           );
         })}
       </div>

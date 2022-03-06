@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import * as Base64 from 'js-base64';
 
 import Container from '@/extensions/components/Container';
+import CopyButton from '@/components/CopyButton';
 
 interface InputProps {
   name: string;
@@ -17,7 +18,7 @@ function Input(props: InputProps) {
   const [value, setValue] = useControllableValue<string>(props);
 
   return (
-    <div className={classNames('flex flex-col', className)}>
+    <div className={classNames('relative flex flex-col', className)}>
       <div>{name}</div>
       <textarea
         className='outline-none flex-1 min-h-240px p-4px resize-none'
@@ -26,6 +27,7 @@ function Input(props: InputProps) {
           setValue(event.target.value);
         }}
       />
+      <CopyButton className='absolute right-4px bottom-4px w-30px h-30px' text={value || ''} />
     </div>
   );
 }
@@ -48,13 +50,13 @@ export default function Base64Extension() {
     <Container>
       <Input
         name='原始文本'
-        className='flex-1 pr-4px <xl:pr-0 <xl:mb-8px'
+        className='flex-1 mr-4px <xl:mr-0 <xl:mb-8px'
         value={decodeText}
         onChange={handleDecodeTextChange}
       />
       <Input
         name='编码后文本'
-        className='flex-1 pl-4px <xl:pl-0'
+        className='flex-1 ml-4px <xl:ml-0'
         value={encodeText}
         onChange={handleEncodeTextChange}
       />
