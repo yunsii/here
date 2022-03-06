@@ -7,13 +7,14 @@ export interface CopyButtonProps {
   text: string;
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLSpanElement>;
+  onCopy?: (text: string, result: boolean) => void;
 }
 
 export default function CopyButton(props: CopyButtonProps) {
-  const { className, text, ...rest } = props;
+  const { className, text, onCopy, ...rest } = props;
 
   return (
-    <CopyToClipboard text={text}>
+    <CopyToClipboard text={text} onCopy={onCopy}>
       <CopyOutlined
         className={classNames(
           'flex justify-center items-center text-primary-color border border-gray-300 cursor-pointer bg-light-50 hover:bg-light-400 active:bg-light-800',

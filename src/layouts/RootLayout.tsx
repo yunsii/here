@@ -1,3 +1,6 @@
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
+initializeIcons();
+
 import '@/extensions/Base64/register';
 import '@/extensions/Emoticon/register';
 

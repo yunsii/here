@@ -1,6 +1,7 @@
 import { useControllableValue } from 'ahooks';
 import classNames from 'classnames';
 import * as Base64 from 'js-base64';
+import { MessageBar, MessageBarType } from '@fluentui/react';
 
 import Container from '@/extensions/components/Container';
 import CopyButton from '@/components/CopyButton';
@@ -16,10 +17,26 @@ function Input(props: InputProps) {
   const { name, className } = props;
 
   const [value, setValue] = useControllableValue<string>(props);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    }
+  }, [copied]);
 
   return (
     <div className={classNames('relative flex flex-col', className)}>
-      <div>{name}</div>
+      <div className='h-32px flex items-center'>
+        <span className='mr-8px'>{name}</span>
+        {copied && (
+          <div className='flex-1'>
+            <MessageBar messageBarType={MessageBarType.success}>Copied</MessageBar>
+          </div>
+        )}
+      </div>
       <textarea
         className='outline-none flex-1 min-h-240px p-4px resize-none'
         value={value || ''}
@@ -27,7 +44,13 @@ function Input(props: InputProps) {
           setValue(event.target.value);
         }}
       />
-      <CopyButton className='absolute right-4px bottom-4px w-30px h-30px' text={value || ''} />
+      <CopyButton
+        className='absolute right-4px bottom-4px w-30px h-30px'
+        text={value || ''}
+        onCopy={(text, done) => {
+          setCopied(done);
+        }}
+      />
     </div>
   );
 }

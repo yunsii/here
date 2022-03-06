@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { MessageBar, MessageBarType } from '@fluentui/react';
 
 import Container from '@/extensions/components/Container';
 
@@ -14,13 +15,36 @@ export interface CellProps {
 function Panel(props: CellProps) {
   const { name, data, className } = props;
 
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    }
+  }, [copied]);
+
   return (
     <div className='w-full h-full flex flex-col'>
-      <div>{name}</div>
+      <div className='h-32px flex items-center'>
+        <span className='mr-8px'>{name}</span>
+        {copied && (
+          <div className='flex-1'>
+            <MessageBar messageBarType={MessageBarType.success}>Copied</MessageBar>
+          </div>
+        )}
+      </div>
       <div className={classNames('flex-1', className)}>
         {data.map((item) => {
           return (
-            <CopyToClipboard key={item} text={item}>
+            <CopyToClipboard
+              key={item}
+              text={item}
+              onCopy={(text, done) => {
+                setCopied(done);
+              }}
+            >
               <div className='py-16px flex justify-center items-center bg-light-50 hover:bg-light-400 active:bg-light-800'>
                 {item}
               </div>
