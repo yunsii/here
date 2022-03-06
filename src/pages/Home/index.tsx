@@ -24,7 +24,7 @@ export default function Home() {
       }}
     >
       <div className='p-12px'>
-        <SearchBar />
+        <SearchBar width={'calc(100vw - 24px)'} />
       </div>
       <Observer>
         {() => {
@@ -49,8 +49,8 @@ export default function Home() {
                       </div>
                     }
                     minimized={item.minimized}
-                    onMinimized={() => item.minimize()}
-                    onClose={() => item.close()}
+                    onMinimized={() => windows.minimize(item.handle)}
+                    onClose={() => windows.close(item.handle)}
                   >
                     {createElement(ext.component)}
                   </Window>

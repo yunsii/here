@@ -13,7 +13,7 @@ class Windows {
   open(key: string) {
     const index = this.state.findIndex((item) => item.key === key);
     if (index >= 0) {
-      this.state[index].open();
+      this.state[index].active();
     } else {
       this.state = [new Window(key, key), ...this.state];
     }

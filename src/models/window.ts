@@ -5,7 +5,7 @@ export default class Window {
 
   handle = '';
 
-  active = false;
+  activated = false;
 
   minimized = false;
 
@@ -15,16 +15,12 @@ export default class Window {
     this.key = key;
     this.handle = handle;
 
-    this.open();
+    this.active();
   }
 
-  open() {
-    this.active = true;
+  active() {
+    this.activated = true;
     this.minimized = false;
-  }
-
-  close() {
-    this.active = false;
   }
 
   minimize() {

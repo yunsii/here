@@ -9,7 +9,7 @@ export default defineConfig({
       },
       height: {
         'task-bar-size': '48px',
-        'search-bar-height': '36px',
+        'input-height': '36px',
       },
       colors: {
         'primary-color': '#494344',

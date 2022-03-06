@@ -22,10 +22,10 @@ export default function TaskBar() {
   return (
     <div className='w-full h-task-bar-size bg-primary-color flex select-none'>
       <Popup
+        ref={popupRef}
         trigger={<IconWrapper highlight icon={<MenuOutlined />} />}
         position='top left'
         arrow={false}
-        ref={popupRef}
       >
         <Panel onClick={() => popupRef.current?.close()} />
       </Popup>
@@ -47,7 +47,7 @@ export default function TaskBar() {
                       );
                       if (targetWindow) {
                         if (targetWindow.minimized) {
-                          targetWindow.open();
+                          targetWindow.active();
                         } else {
                           targetWindow.minimize();
                         }
