@@ -23,10 +23,10 @@ const TaskBar = observer(() => {
   const aboutPopupRef = useRef<PopupAction>(null);
 
   const fixedWindows = windows.filter((item) =>
-    fixedExtensions.some((ext) => ext.key === item.key),
+    fixedExtensions.some((ext) => ext.key === item.key && !!ext.fixedToTaskBar),
   );
   const generalWindows = windows.filter((item) =>
-    fixedExtensions.some((ext) => ext.key !== item.key),
+    fixedExtensions.some((ext) => ext.key === item.key && !ext.fixedToTaskBar),
   );
 
   return (
