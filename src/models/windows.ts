@@ -9,13 +9,32 @@ class Windows {
     makeAutoObservable(this);
   }
 
+  private getMaxOrder() {
+    const orders = this.state.map((item) => item.order);
+    if (orders.length) {
+      return Math.max(...this.state.map((item) => item.order));
+    }
+    return -1;
+  }
+
+  isFocus(window: Window) {
+    return !!window && !window.minimized && window.order === this.getMaxOrder();
+  }
+
   /** 当前一个工具只开一个窗口 */
   open(key: string) {
-    const index = this.state.findIndex((item) => item.key === key);
-    if (index >= 0) {
-      this.state[index].active();
+    const targetIndex = this.state.findIndex((item) => item.key === key);
+    if (targetIndex >= 0) {
+      this.state[targetIndex].active(this.getMaxOrder() + 1);
     } else {
-      this.state = [new Window(key, key), ...this.state];
+      this.state = [
+        new Window({
+          key,
+          handle: key,
+          order: this.getMaxOrder() + 1,
+        }),
+        ...this.state,
+      ];
     }
   }
 
@@ -37,6 +56,10 @@ class Windows {
 
   find<T>(callback: (item: Window, index: number) => T) {
     return this.state.find(callback);
+  }
+
+  sort(compareFn?: (a: Window, b: Window) => number) {
+    return this.state.slice().sort(compareFn);
   }
 
   clear() {

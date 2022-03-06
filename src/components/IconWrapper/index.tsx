@@ -1,5 +1,10 @@
+import classNames from 'classnames';
+
 export interface IconWrapperProps
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends Omit<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    'ref'
+  > {
   icon: string | JSX.Element;
   /** SVG 图标可配置 */
   highlight?: boolean;
@@ -7,8 +12,16 @@ export interface IconWrapperProps
   afterClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const IconWrapper = forwardRef((props: IconWrapperProps, ref?: React.LegacyRef<HTMLDivElement>) => {
-  const { highlight, icon, iconStyle, onClick, afterClick, ...rest } = props;
+const IconWrapper = forwardRef((props: IconWrapperProps, ref?: React.Ref<HTMLDivElement>) => {
+  const {
+    highlight,
+    icon,
+    iconStyle,
+    onClick,
+    afterClick,
+    className: inputClassName,
+    ...rest
+  } = props;
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
     onClick?.(event);
@@ -29,7 +42,12 @@ const IconWrapper = forwardRef((props: IconWrapperProps, ref?: React.LegacyRef<H
   };
 
   return (
-    <div onClick={handleClick} {...rest} ref={ref} className={className}>
+    <div
+      onClick={handleClick}
+      {...rest}
+      ref={ref}
+      className={classNames(className, inputClassName)}
+    >
       {renderIcon()}
     </div>
   );

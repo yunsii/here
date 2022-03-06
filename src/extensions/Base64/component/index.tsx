@@ -1,4 +1,5 @@
 import { useControllableValue } from 'ahooks';
+import classNames from 'classnames';
 import * as Base64 from 'js-base64';
 
 interface InputProps {
@@ -14,7 +15,7 @@ function Input(props: InputProps) {
   const [value, setValue] = useControllableValue<string>(props);
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={classNames('flex flex-col', className)}>
       <div>{name}</div>
       <textarea
         className='outline-none flex-1 p-4px resize-none'

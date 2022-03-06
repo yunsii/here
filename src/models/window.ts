@@ -1,26 +1,31 @@
 import { makeAutoObservable } from 'mobx';
 
+export interface InitOptions {
+  key: string;
+  handle: string;
+  order: number;
+}
+
 export default class Window {
   key = '';
 
   handle = '';
 
-  activated = false;
-
   minimized = false;
 
-  constructor(key: string, handle: string) {
+  order = 0;
+
+  constructor(options: InitOptions) {
     makeAutoObservable(this);
 
-    this.key = key;
-    this.handle = handle;
-
-    this.active();
+    this.key = options.key;
+    this.handle = options.handle;
+    this.order = options.order;
   }
 
-  active() {
-    this.activated = true;
+  active(order: number) {
     this.minimized = false;
+    this.order = order;
   }
 
   minimize() {

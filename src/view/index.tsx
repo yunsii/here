@@ -1,4 +1,4 @@
-import { Observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import { useUnmount } from 'ahooks';
 
 import Registry from '@/extensions/core/registry';
@@ -9,7 +9,7 @@ import Window from '@/components/Window';
 import SearchBar from './components/SearchBar';
 import TaskBar from './components/TaskBar';
 
-export default function Home() {
+const View = observer(() => {
   useUnmount(() => {
     windows.clear();
   });
@@ -26,44 +26,40 @@ export default function Home() {
       <div className='p-12px'>
         <SearchBar width={'calc(100vw - 24px)'} />
       </div>
-      <Observer>
-        {() => {
+      {windows
+        .sort((a, b) => a.order - b.order)
+        .map((item) => {
+          const ext = Registry.extension.get(item.key)!;
           return (
-            <>
-              {windows.map((item) => {
-                const ext = Registry.extension.get(item.key)!;
-                return (
-                  <Window
-                    key={item.handle}
-                    className='absolute top-0 right-0 bottom-48px left-0'
-                    name={
-                      <div className='flex'>
-                        <IconWrapper
-                          icon={ext.icon}
-                          style={{
-                            width: 24,
-                            height: 24,
-                            marginRight: 4,
-                          }}
-                        />
-                        {ext.displayName}
-                      </div>
-                    }
-                    minimized={item.minimized}
-                    onMinimized={() => windows.minimize(item.handle)}
-                    onClose={() => windows.close(item.handle)}
-                  >
-                    {createElement(ext.component)}
-                  </Window>
-                );
-              })}
-            </>
+            <Window
+              key={item.handle}
+              className='absolute top-0 right-0 bottom-48px left-0'
+              name={
+                <div className='flex'>
+                  <IconWrapper
+                    icon={ext.icon}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      marginRight: 4,
+                    }}
+                  />
+                  {ext.displayName}
+                </div>
+              }
+              minimized={item.minimized}
+              onMinimized={() => windows.minimize(item.handle)}
+              onClose={() => windows.close(item.handle)}
+            >
+              {createElement(ext.component)}
+            </Window>
           );
-        }}
-      </Observer>
+        })}
       <div className='absolute right-0 bottom-0 left-0'>
         <TaskBar />
       </div>
     </div>
   );
-}
+});
+
+export default View;

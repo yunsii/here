@@ -1,4 +1,5 @@
 import { MinusOutlined, CloseOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
 
 export interface WindowProps {
   name: React.ReactNode;
@@ -15,10 +16,14 @@ export default function Window(props: WindowProps) {
 
   return (
     <div
-      className={`w-full flex flex-col bg-[#f3f3f3] border-width-1px border-[#dddddd] ${className}`}
+      className={classNames(
+        'w-full flex flex-col bg-[#f3f3f3] border-width-1px border-[#dddddd]',
+        className,
+      )}
       style={{
         overflow: 'hidden',
         height: minimized ? '0' : '100%',
+        visibility: minimized ? 'hidden' : 'visible',
       }}
     >
       <div className='h-36px flex justify-between items-center pl-4px border-b border-[#dddddd]'>
