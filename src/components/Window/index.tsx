@@ -22,7 +22,7 @@ export default function Window(props: WindowProps) {
       )}
       style={{
         overflow: 'hidden',
-        height: minimized ? '0' : '100%',
+        height: minimized ? '0' : 'calc(100% - 48px)',
         visibility: minimized ? 'hidden' : 'visible',
       }}
     >
