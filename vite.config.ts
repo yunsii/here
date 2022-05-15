@@ -13,7 +13,6 @@ import routes from './config/routes';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/here/',
   plugins: [
     react({
       babel: {
@@ -27,13 +26,7 @@ export default defineConfig({
       imports: [
         'react',
         {
-          react: [
-            'createElement',
-            'cloneElement',
-            'createContext',
-            'useLayoutEffect',
-            'forwardRef',
-          ],
+          react: ['createElement', 'cloneElement', 'createContext'],
         },
       ],
     }),
